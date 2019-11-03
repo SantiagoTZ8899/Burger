@@ -1,24 +1,30 @@
 // require/import orm.js
-const orm = require("../config/orm");
+let orm = require("../config/orm.js");
 
 const burger = {
-    select: (cb) => {
-        orm.select("burgers", (result) => {
+    selectAll: (cb) => {
+        orm.selectAll("burgers", (result) => {
             cb(result);
         });
     },
 
-    create: (column, value, cb) => {
-        orm.create("burgers", column, value, function(result) {
+    create: (col, val, cb) => {
+        orm.create("burgers", col, val, function(result) {
             cb(result);
         });
     },
 
-    update: (column, newVal, cb) => {
-        orm.update("burgers", column, newVal, whereCol, whereVal, (result) => {
+    update: (objColVal, id, cb) => {
+        orm.update("burgers", objColVal, id, (result) => {
+            cb(result);
+        });
+    },
+
+    delete: (id, cb) {
+        orm.delete("burgers", id, (result) => {
             cb(result);
         });
     }
-}
+;}
 
 module.exports = burger;
