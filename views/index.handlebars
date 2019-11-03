@@ -1,0 +1,72 @@
+<header>
+
+    <h1 id="header">Eat Burgers</h1>
+
+    <br>
+
+    <h2>Food is Good</h2>
+
+    <div id="burgerpic">
+                <img style="width:400px;height:400px;" src="../public/image/burgerpic.jpg" alt="burgerpic" />
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="row">
+        <h1>Burgers</h1>
+    </div>
+
+    <div class="card col-md-5">
+        <h3 class="card-title sub-header" id="notEaten">To-Be Eaten</h3>
+            <div class="card-body">
+                <ul>
+                    <li>
+                        {{#each burger}}
+                        {{#unless devoured}}
+
+                        <p>
+                            {{burger_name}}
+                        </p>
+                        
+                        <button type="button" class="devour" data-id="{{id}}"></button>
+
+                        {{/unless}}
+                        {{/each}}
+
+                        {{!-- <button id="delete-burger" data-id="{{this.id}}">DELETE</button> --}}
+
+                    </li>
+                </ul>
+            </div>
+    </div>
+
+    <div class="card col-md-5">
+        <h3 class="card-title sub-header" id="eaten">Eaten</h3>
+            <div class="card-body">
+                <ul>
+
+                    {{#each burger}}
+                    {{#if devoured}}
+
+                    <p>
+                        {{burger_name}}
+                    </p>
+                    
+                    {{/if}}
+                    {{/each}}
+
+                </ul>
+            </div>
+    </div>
+
+    <div class="sub-header">Add a burger</div>
+        <form id="burgers">
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="name" placeholder="Add a new Burger!">
+            </div>
+
+            <button type="submit">submit</button>
+        </form>
+</div>

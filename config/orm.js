@@ -1,46 +1,56 @@
+// import/require connection.js file to stablish connection
 const connection = require("./connection.js");
 
+// create the data structure to be used when selecting from DB
 const orm = {
-    select: function(table, cb) {
+    select: (table, cb) => {
         let query = `SELECT * FROM ??`
-        connection.query(query, [table], function(err, result) {
+        connection.query(query, [table], (err, result) => {
             if (err) {
                 throw err;
             }
+            console.log("this should display all burgers")
             console.log(result);
-            cb(result);
+            // cb(result);
 
         });
     },
 
-    create: function(table, column, value) {
+    create: (table, column, value) => {
         let insertQuery = `INSERT INTO ?? (??) VALUES(?)`
-        connection.query(insertQuery, [table, colums, value], function(err, result) {
+        connection.query(insertQuery, [table, column, value], (err, result) => {
             if (err) {
                 throw err;
             }
+            console.log("this should add a burger to the database")
             console.log(result);
+            // cb(result);
         });
     },
 
-    update: function(table, column, newVal, whereCol, whereVal) {
+    update: (table, column, newVal, whereCol, whereVal) => {
         let updateQuery = `UPDATE ?? SET ?? = ? WHERE ?? = ?`
-        connection.query(updateQuery, [table, column, newVal, whereCol, whereVal], function (err, result) {
+        connection.query(updateQuery, [table, column, newVal, whereCol, whereVal], (err, result) => {
             if (err) {
                 throw err; 
             }
+            console.log("this updates the burger status")
             console.log(result);
+            // cb(result);
         });
     },
 
-    delete: function(table, column, value) {
+    delete: (table, column, value, cb) => {
         let deleteQuery = `DELETE FROM ?? WHERE ?? = ?`
-        connection.query(deleteQuery, [table, column, value], function(err, result) {
+        connection.query(deleteQuery, [table, column, value], (err, result)  => {
             if (err) {
                 throw err;
             }
+            console.log("this should delete devoured burgers from the database")
             console.log(result);
+            // cb(result);
         });
     }
-
 }
+
+module.exports = orm;
