@@ -20,11 +20,11 @@ const burger = {
         });
     },
 
-    delete: (id, cb) {
+    delete: (id, cb) => {
         orm.delete("burgers", id, (result) => {
             cb(result);
         });
     }
-;}
+};
 
 module.exports = burger;

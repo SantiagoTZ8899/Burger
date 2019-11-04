@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const burger = require("../models/burger");
+const burger = require("../models/burger.js");
 
 // create main routes, and their logic
 // this will get all the burgers info from the database
  router.get("/", (req, res) => {
-    burger.select(function (data) {
+    burger.selectAll(function (data) {
         let hbsObject = {
             burger: data
         };

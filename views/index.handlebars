@@ -1,14 +1,12 @@
 <header>
 
     <h1 id="header">Eat Burgers</h1>
-
     <br>
-
     <h2>Food is Good</h2>
 
-    <div id="burgerpic">
-                <img style="width:400px;height:400px;" src="../public/image/burgerpic.jpg" alt="burgerpic" />
-    </div>
+    {{!-- <div id="burgerpic">
+        <img style="width:400px;height:400px;" src="/public/image/burgerpic.jpg" alt="burgerpic" />
+    </div> --}}
 </header>
 
 <div class="container">
@@ -21,15 +19,14 @@
         <h3 class="card-title sub-header" id="notEaten">To-Be Eaten</h3>
             <div class="card-body">
                 <ul>
-                    <li>
-                        {{#each burger}}
+                    {{#each burger}}
                         {{#unless devoured}}
-
+                    <li>
                         <p>
                             {{burger_name}}
                         </p>
                         
-                        <button type="button" class="devour" data-id="{{id}}"></button>
+                        <button class="devour" data-id="{{id}}"></button>
 
                         {{/unless}}
                         {{/each}}
@@ -46,7 +43,7 @@
             <div class="card-body">
                 <ul>
 
-                    {{#each burger}}
+                    {{#each burgers}}
                     {{#if devoured}}
 
                     <p>

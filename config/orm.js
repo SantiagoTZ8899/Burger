@@ -24,7 +24,7 @@ let orm = {
         connection.query(query, [table], (err, result) => {
             if (err) throw err;
             console.log("this should display all burgers")
-            // console.log(result);
+            console.log(result);
             cb(result);
 
         });
@@ -44,8 +44,9 @@ let orm = {
     },
 
     update: (table, objColVal, id, cb) => {
-        let query = "UPDATE " + " SET " + objToSql(objColVal);
-        query += " WHERE id = " + id;
+        let query = "UPDATE " + table + " SET " + objToSql(objColVal);
+        query += "WHERE id = " + id;
+        // console.log(objColVal, id);
         console.log(query);
         connection.query(query, (err, result) => {
             if (err) {
