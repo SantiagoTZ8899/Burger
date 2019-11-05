@@ -27,16 +27,18 @@ router.post("/api/burger", (req, res) => {
 });
 
 // update database
-router.put("/api/burger/:id", (req, res) => {
-    let status = Boolean(req.body.devoured);
-    console.log("burger status ", status);
-    // updating the devoured status of the burger
-    burger.update("devoured", status, "id", req.params.id, (result) => {
+router.put("/api/:id", (req, res) => {
+    burger.update ({
+        devoured: req.body.devoured
+        }, req.params.id, function(result) {
+        // updating the devoured status of the burger
         if(result.changedRows === 0) {
             return res.status(404).end();
-        }
+        } else {
         res.status(204).end();
+        }
     });
 });
+
 
 module.exports = router;

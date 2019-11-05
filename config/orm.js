@@ -3,19 +3,19 @@ const connection = require("./connection.js");
 
 // got this following function from an ecample on stack overflow
 
-function objToSql(ob) {
-    let arr = [];
-    for (let key in ob) {
-        let value = ob[key];
-        if (Object.hasOwnProperty.call(ob, key)) {
-            if(typeof value === "string" && value.indexOf(" ") >= 0) {
-                value = "'" + value + "'";
-            }
-            arr.push(key + "=" + value);
-        }
-    }
-    return arr.toString();
-}
+// function objToSql(ob) {
+//     let arr = [];
+//     for (let key in ob) {
+//         let value = ob[key];
+//         if (Object.hasOwnProperty.call(ob, key)) {
+//             if(typeof value === "string" && value.indexOf(" ") >= 0) {
+//                 value = "'" + value + "'";
+//             }
+//             arr.push(key + "=" + value);
+//         }
+//     }
+//     return arr.toString();
+// }
 
 // create the data structure to be used when selecting from DB
 let orm = {
@@ -43,7 +43,7 @@ let orm = {
         });
     },
 
-    update: (table, objColVal, id, cb) => {
+    update: function(table, id, objColVal,  cb) {
         let query = "UPDATE " + table + " SET " + objToSql(objColVal);
         query += "WHERE id = " + id;
         // console.log(objColVal, id);
