@@ -8,37 +8,43 @@ const burger = require("../models/burger.js");
  router.get("/", (req, res) => {
     burger.selectAll(function (data) {
         let hbsObject = {
-            burger: data
+            burgers: data
         };
+        console.log(hbsObject);
         res.render("index", hbsObject);
-     })
+     });
  });
 
 // creating a new burger to send to the database
-router.post("/api/burger", (req, res) => {
-    let newBurger = req.body.name;
-    burger.create("burger_name", newBurger, (result) => {
-        // DB_common::affectedRows() – Finds number of rows affected by a data changing query
-        if(result.affectedRows === 0) {
-            return res.status(404).end();
-        }
-        res.status(204).end();
-    })
+router.post("/api/burgers", (req, res) => {
+    burger.InsertOne(["burger_name", "devoured"], [req.body.burger_name, req.body.devoured], (result) => {
+        res.json({ id: result.insertId });
+    });
 });
 
 // update database
-router.put("/api/:id", (req, res) => {
-    burger.update ({
-        devoured: req.body.devoured
-        }, req.params.id, function(result) {
-        // updating the devoured status of the burger
-        if(result.changedRows === 0) {
+router.put("/api/burgers/:id", (req, res) => {
+    var condition = "id = " + req.params.id;
+    console.log("condition", condition);
+    burger.updateOne({ devoured: req.body.devoured }, condition, function(result) {
+        if (result.changedRows === 0) {
             return res.status(404).end();
         } else {
-        res.status(204).end();
+            res.status(200).end();
         }
     });
 });
 
+router.delete("/api/burgers/:id", function(req, res) {
+    var condition = "id = " +req.params.id;
+    console.log("condition", condition);
+    burger.deleteOne(condition, function(result) {
+        if (result.changedRows === 0) {
+            return res.status(404).end();
+        } else {
+            res.status(200).end();
+        }
+    });
+});
 
 module.exports = router;

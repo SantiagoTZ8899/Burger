@@ -1,7 +1,5 @@
-insert into burgers (burger_name, devoured) values ("cheeseburger", false);
-insert into burgers (burger_name, devoured) values ("double cheeseburger", false);
-insert into burgers (burger_name, devoured) values ("veggie burger", true);
-insert into burgers (burger_name, devoured) values ("upside down burger", true);
-insert into burgers (burger_name, devoured) values ("candy burger", true);
 
-select * from burgers;
+USE burgers_db;
+-- Insert new rows of data.
+INSERT INTO burgers (burger_name, devoured)
+VALUES ("hamburger", false), ("cheeseburger", false), ("tofu burger", false);

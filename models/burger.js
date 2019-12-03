@@ -1,30 +1,35 @@
-// require/import orm.js
+// require/import orm.js into burger.js
 let orm = require("../config/orm.js");
 
 const burger = {
-    selectAll: (cb) => {
-        orm.selectAll("burgers", (result) => {
-            cb(result);
+    // display all of the burgers in the databsae
+    selectAll: function(cb) {
+        orm.selectAll("burgers", function(res) {
+            cb(res);
         });
     },
 
-    create: (col, val, cb) => {
-        orm.create("burgers", col, val, function(result) {
-            cb(result);
+    // add new burger to the database
+    insertOne: function(cols, vals, cb) {
+        orm.insertOne("burgers", cols, vals, function(res) {
+            cb(res);
         });
     },
 
-    update: (objColVal, id, cb) => {
-        orm.update("burgers", objColVal, id, (result) => {
-            cb(result);
+    // change the devoured status of the a burger to TRUE
+    updateOne: function(objColVals, condition, cb) {
+        orm.updateOne("burgers", objColVals, condition, function(res) {
+            cb(res);
         });
     },
 
-    delete: (id, cb) => {
-        orm.delete("burgers", id, (result) => {
-            cb(result);
+    // delete a burger from the database
+    deleteOne: function(condition, cb) {
+        orm.deleteOne("burgers", condition, function(res) {
+            cb(res);
         });
     }
 };
 
+// export at the end of the burger.js file
 module.exports = burger;

@@ -1,72 +1,96 @@
 // import/require connection.js file to stablish connection
-const connection = require("./connection.js");
+const connection = require("../config/connection.js");
 
-// got this following function from an ecample on stack overflow
+function printQuestionMarks(num) {
+    let arr = [];
+    for (let i = 0; i < num; i++) {
+        arr.push("?");
+    }
+    return arr.toString();
+}
 
-// function objToSql(ob) {
-//     let arr = [];
-//     for (let key in ob) {
-//         let value = ob[key];
-//         if (Object.hasOwnProperty.call(ob, key)) {
-//             if(typeof value === "string" && value.indexOf(" ") >= 0) {
-//                 value = "'" + value + "'";
-//             }
-//             arr.push(key + "=" + value);
-//         }
-//     }
-//     return arr.toString();
-// }
+function objToSql(ob) {
+    let arr = [];
+    for (var key in ob) {
+        let value = ob[key];
+        if (Object.hasOwnProperty.call(ob, key)) {
+            if (typeof value === "string" && value.indexOf(" ") >= 0) {
+                value = "'" + value + "'";
+            }
+            arr.push(key + "=" + value);
+        }
+    }
+    return arr.toString();
+}
 
-// create the data structure to be used when selecting from DB
+// display all the burgers in the database
 let orm = {
-    selectAll: (table, cb) => {
-        let query = "SELECT * FROM ??";
-        connection.query(query, [table], (err, result) => {
-            if (err) throw err;
-            console.log("this should display all burgers")
-            console.log(result);
+    selectAll: function(table, cb) {
+        let queryString = "SELECT * FROM " + table + ";";
+
+        connection.query(queryString, function(err, result) {
+            if (err) {
+                throw err;
+            }
+            // console.log("this should display all burgers")
+            // console.log(result);
             cb(result);
 
         });
     },
 
-    create: (table, col, val, cb) => {
-        let query = "INSERT INTO " + table + " (" + col.toString() + ") ";
-        query += "VALUES (?)";
-        connection.query(query, [val], (err, result) => {
+    // adding burgers to the database
+    insertOne: function(table, cols, vals, cb) {
+        let queryString = "INSERT INTO " + table;
+        queryString += " (";
+        queryString += cols.toString();
+        queryString += ") ";
+        queryString += "VALUES (";
+        queryString += printQuestionMarks(vals.length);
+        queryString += ") ";
+        
+        console.log(queryString);
+
+        connection.query(queryString, vals, function(err, result) {
             if (err) {
                 throw err;
             }
-            console.log("this should add a burger to the database")
+            // console.log("this should add a burger to the database")
             // console.log(result);
             cb(result);
         });
     },
 
-    update: function(table, id, objColVal,  cb) {
-        let query = "UPDATE " + table + " SET " + objToSql(objColVal);
-        query += "WHERE id = " + id;
+    updateOne: function(table, objColVals, condition, cb) {
+        let queryString = "UPDATE " + table;
+        queryString += " SET ";
+        queryString += objToSql(objColVals);
+        queryString += " WHERE ";
+        queryString += condition;
         // console.log(objColVal, id);
-        console.log(query);
-        connection.query(query, (err, result) => {
+        console.log(queryString);
+        connection.query(queryString, function(err, result) {
             if (err) {
                 throw err; 
             }
-            console.log("this updates the burger status")
+            // console.log("this updates the burger status")
             // console.log(result);
             cb(result);
         });
     },
 
-    delete: (table, id, cb) => {
-        let query = "DELETE FROM " + table;
-        query += " WHERE id = " + id;
-        console.log(query);
-        connection.query(query, (err, result)  => {
+    deleteOne: function(table, condition, cb) {
+        let queryString = "DELETE FROM " + table;
+        queryString += " WHERE ";
+        queryString += condition;
+
+        console.log(queryString);
+
+        connection.query(queryString, function(err, result) {
             if (err) {
                 throw err;
             }
-            console.log("this should delete devoured burgers from the database")
+            // console.log("this should delete devoured burgers from the database")
             // console.log(result);
             cb(result);
         });

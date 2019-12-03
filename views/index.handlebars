@@ -1,69 +1,60 @@
-<header>
-
-    <h1 id="header">Eat Burgers</h1>
-    <br>
-    <h2>Food is Good</h2>
-
-    {{!-- <div id="burgerpic">
-        <img style="width:400px;height:400px;" src="/public/image/burgerpic.jpg" alt="burgerpic" />
-    </div> --}}
-</header>
+{{!-- this index.handlebars is the basic template that Handlebars will render --}}
 
 <div class="container">
+{{!-- jumbotron title --}}
+    <div class="jumbotron">
+        <h1 id="color-override">Eat Burgers</h1>
+        <p id="color-override">Create Burgers, then Eat Burgers.</p>
+        <h2 id="color-override">Make a New Burger</h2>
+        <panel>
+            <form class="create-form">
+                <div class="form-group">
+                    <label for="newburger" id="color-override">New Burger: </label>
+                    <input type="text" id="newburger" name="burger">
+                    {{!-- button that will submit new burger into the DB --}}
+                    <button type="submit" class="btn btn-success" id="addburger"><span class="fa fa-thumbs-up"></span></button>
+                </div>
+            </form>
+        </panel>
+    </div>
+    {{!-- end jumbotron --}}
 
     <div class="row">
-        <h1>Burgers</h1>
-    </div>
-
-    <div class="card col-md-5">
-        <h3 class="card-title sub-header" id="notEaten">To-Be Eaten</h3>
-            <div class="card-body">
-                <ul>
-                    {{#each burger}}
+        {{!-- non-devoured burgers --}}
+      <div class="col-sm-6">
+          <div class="panel panel-default">
+              <div class="panel-heading" id="lefthead"><strong>New Burgers</strong></div>
+              <div class="panel-body">
+                  <ul>
+                      {{#each burgers}}
                         {{#unless devoured}}
-                    <li>
-                        <p>
-                            {{burger_name}}
-                        </p>
-                        
-                        <button class="devour" data-id="{{id}}"></button>
-
+                            <span><strong> {{this.id}} - {{this.burger_name}} </strong></span>
+                            <button type="button" class="eatburger btn btn-warning" id="eatbutton" data-id="{{this.id}}" data-newDevoured="{{devour}}"><span class="fa fa-cutlery"></span></button>
+                            <hr>
                         {{/unless}}
-                        {{/each}}
-
-                        {{!-- <button id="delete-burger" data-id="{{this.id}}">DELETE</button> --}}
-
-                    </li>
-                </ul>
-            </div>
-    </div>
-
-    <div class="card col-md-5">
-        <h3 class="card-title sub-header" id="eaten">Eaten</h3>
-            <div class="card-body">
-                <ul>
-
-                    {{#each burgers}}
-                    {{#if devoured}}
-
-                    <p>
-                        {{burger_name}}
-                    </p>
-                    
-                    {{/if}}
                     {{/each}}
+                  </ul>
+              </div>
+          </div>
+      </div>
 
-                </ul>
+    {{!-- devoured burgers --}}
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading" id="righthead"><strong>Devoured Burgers</strong></div>
+                <div class="panel-body">
+                    <ul>
+                        {{#each burgers}}
+                            {{#if devoured}}
+                                <span><strong> {{this.id}} - {{this.burger_name}} </strong></span>
+                                <button type="button" class="trashburger btn btn-danger" id="trashbutton" data-id="{{this.id}}" data-newDevoured="{{devour}}"><span class="fa fa-trash"></span></button>
+                                <hr>
+                            {{/if}}
+                        {{/each}}
+                    </ul>
+                </div>
             </div>
+        </div>
     </div>
 
-    <div class="sub-header">Add a burger</div>
-        <form id="burgers">
-
-            <div class="form-group">
-                <input type="text" class="form-control" id="name" placeholder="Add a new Burger!">
-            </div>
-
-            <button type="submit">submit</button>
-        </form>
 </div>

@@ -2,14 +2,16 @@
   "name": "burger",
   "version": "1.0.0",
   "description": "Burger App",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SantiagoTZ8899/Burger.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
