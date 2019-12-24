@@ -4,7 +4,7 @@ const app = express();
 
 var bodyParser = require("body-parser");
 // Serve static content for the app from the "public" directory in the application directory.
-app.use(express.static("pulic"));
+app.use("/static", express.static("./static/"));
 
 // parse application JSON
 app.use(bodyParser.urlencoded({ extended: true }));

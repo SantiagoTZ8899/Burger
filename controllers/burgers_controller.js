@@ -17,7 +17,7 @@ const burger = require("../models/burger.js");
 
 // creating a new burger to send to the database
 router.post("/api/burgers", (req, res) => {
-    burger.InsertOne(["burger_name", "devoured"], [req.body.burger_name, req.body.devoured], (result) => {
+    burger.insertOne(["burger_name", "devoured"], [req.body.burger_name, req.body.devoured], (result) => {
         res.json({ id: result.insertId });
     });
 });
