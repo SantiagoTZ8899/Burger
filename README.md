@@ -3,6 +3,9 @@
 
 ## App Heroku Link
 
+Try the app:
+    https://aqueous-tundra-09228.herokuapp.com/
+
 ## Local Setup
 To use the Burger app from your local machine you must do the following:
 
