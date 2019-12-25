@@ -11,11 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // port setup
-// if (process.env.JAWSDB_URL) {
-//     var connection = mysql.createConnection(process.env.JAWSDB_URL)
-// } else {
 
-// }
 
 const PORT = process.env.PORT || 8080;
 
